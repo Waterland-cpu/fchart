@@ -12,3 +12,23 @@ body {
     width: 70%;
     max-width: 800px;
 }
+.chart-container {
+    position: relative;
+    display: inline-block;
+}
+
+
+.chart-container canvas {
+    display: block;
+}
+
+.chart-container .chart-center-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 35%; /* 圖片大小可以調整 */
+    height: auto;
+    z-index: 10; /* 確保圖片顯示在上方 */
+    pointer-events: none; /* 確保點擊事件不影響圖表 */
+}
