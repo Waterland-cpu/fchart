@@ -35,10 +35,10 @@ const mapping = {
     "handpiece": ["A17", "A16.26", "A02", "A01.19"],
     "cooling system": ["W03", "W04.05.07.09", "W01"],
     "biotip": ["A05-44~47", "A24.25", "A23", "A22"],
-    "vacuum": ["V03.04.06", "V01.02"],
-    "console": ["P03"],
-    "lubricant": ["W06"],
-    "USB": ["A08.09.14", "Fxx"]
+    "vacuum": ["V03.04.06", "V01.02","P03"],
+    "console": ["W06"],
+    "lubricant": ["A08.09.14"],
+    "USB": [ "Fxx"]
 };
 
 // **內層的詳細資訊**
