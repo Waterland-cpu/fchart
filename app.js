@@ -98,7 +98,7 @@ const myChart = new Chart(ctx, {
     },
     options: {
         responsive: true,
-        cutout: '40%', // 調整內層大小
+        cutout: '50%', // 調整內層大小
         plugins: {
             legend: {
                 position: 'top'
