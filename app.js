@@ -52,7 +52,6 @@ const innerInfo = {
     'USB': '🔹 USB: 這是一組USB的詳細資訊。'
 };
 
-
 // **外層的詳細資訊**
 const outerInfo = {
     "A17": "📌 A17: APP_SELFTEST",
@@ -72,13 +71,16 @@ const outerInfo = {
     "W06": "📌 W06: WATER_TEMP_TOO_HIGH",
     "A08.09.14": "📌 A08.09.14: 這是一組有趣的數據。",
     "Fxx": "🔸Fxx: F00:FILESYSTEM NOT AVAILABLE\n🔸 F01:FILESYSTEM_OPEN\n🔸 F02:FILESYSTEM_WRITE\n🔸 F03:FILESYSTEM_ERROR\n🔸 F04:THUMBDRIVE_FAULT\n🔸 F05:THUMBDRIVE_ALMOST_FULL\n🔸 F06:THUMBDRIVE_NOT_INSTALLED"
-
 };
 
+// 將換行符號 \n 替換為 <br>
+function formatText(text) {
+    return text.replace(/\n/g, '<br>');
+}
 
-// 打開 modal 並顯示文字
+// 打開 modal 並顯示格式化過的文字
 function openModal(text) {
-    document.getElementById("infoText").innerText = text;
+    document.getElementById("infoText").innerHTML = formatText(text);  // 使用 innerHTML 來支持換行
     document.getElementById("infoModal").style.display = "block";
 }
 
@@ -96,7 +98,6 @@ const myChart = new Chart(ctx, {
                 label: '外層數據',
                 data: outerData,
                 backgroundColor: outerColors,
-                 
                 borderWidth: 2,
                 hoverOffset: 5
             },
@@ -104,7 +105,6 @@ const myChart = new Chart(ctx, {
                 label: '內層數據',
                 data: innerData,
                 backgroundColor: innerColors,
-               
                 borderWidth: 2,
                 hoverOffset: 5
             }
