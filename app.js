@@ -73,19 +73,16 @@ const outerInfo = {
     "Fxx": "🔸Fxx: F00:FILESYSTEM NOT AVAILABLE\n🔸 F01:FILESYSTEM_OPEN\n🔸 F02:FILESYSTEM_WRITE\n🔸 F03:FILESYSTEM_ERROR\n🔸 F04:THUMBDRIVE_FAULT\n🔸 F05:THUMBDRIVE_ALMOST_FULL\n🔸 F06:THUMBDRIVE_NOT_INSTALLED"
 };
 
-// 將換行符號 \n 替換為 <br>
-function formatText(text) {
-    return text.replace(/\n/g, '<br>');
+
+
+// 打開 alert 並顯示詳細資訊
+function showAlert(text) {
+    alert(text);  // 使用 alert 顯示詳細資訊
 }
 
-// 打開 modal 並顯示格式化過的文字
-function openModal(text) {
-    document.getElementById("infoText").innerHTML = formatText(text);  // 使用 innerHTML 來支持換行
-    document.getElementById("infoModal").style.display = "block";
-}
-
-// 關閉 modal
+// 關閉 modal 的部分可以移除
 document.querySelector(".close-btn").addEventListener("click", function() {
+    // 不再需要關閉 modal，因為不使用 modal 了
     document.getElementById("infoModal").style.display = "none";
 });
 
@@ -146,18 +143,19 @@ const myChart = new Chart(ctx, {
 
                 if (datasetIndex === 0) {
                     // 點擊外層顯示詳細資訊
-                    openModal(outerInfo[outerLabels[dataIndex]]);
+                    showAlert(outerInfo[outerLabels[dataIndex]]);
                 } else {
                     // 點擊內層顯示詳細資訊
                     const label = innerLabels[dataIndex];
                     const relatedOuterLabels = mapping[label].map(item => outerInfo[item]).join("\n");
-                    openModal(`${innerInfo[label]}\n\n🌟 關聯的外層數據:\n${relatedOuterLabels}`);
+                    showAlert(`${innerInfo[label]}\n\n🌟 關聯的外層數據:\n${relatedOuterLabels}`);
                 }
             }
         }
     },
     plugins: [ChartDataLabels]
 });
+
 
 
 
