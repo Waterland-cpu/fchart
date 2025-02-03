@@ -75,7 +75,6 @@ const outerInfo = {
 };
 
 
-
 // 打開 modal 並顯示文字
 function openModal(text) {
     document.getElementById("infoText").innerText = text;
