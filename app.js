@@ -74,6 +74,11 @@ const outerInfo = {
 
 };
 
+// 當需要顯示外層信息時，這樣顯示，將 \n 轉換為 <br>
+function showInfo(info) {
+    const formattedInfo = info.replace(/\n/g, '<br>'); // 換行符號轉換為 <br>
+    alert(formattedInfo);
+
 // 打開 modal 並顯示文字
 function openModal(text) {
     document.getElementById("infoText").innerText = text;
