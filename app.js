@@ -151,7 +151,7 @@ const myChart = new Chart(ctx, {
                     // 點擊內層顯示詳細資訊
                     const label = innerLabels[dataIndex];
                     const relatedOuterLabels = mapping[label].map(item => outerInfo[item]).join("\n");
-                    
+                    openModal(`${innerInfo[label]}\n\n🌟 關聯的外層數據:\n${relatedOuterLabels}`);
                 }
             }
         }
