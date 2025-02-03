@@ -55,23 +55,35 @@ const innerInfo = {
 // **外層的詳細資訊**
 const outerInfo = {
     "A17": "📌 A17: APP_SELFTEST",
-    "A16.26": "📌 A16.26: APPLICATOR_TA_OVERTEMP. APP_TA_TC_FAULT",
+    "A16.26": "🔸A16: APPLICATOR_TA_OVERTEMP\n🔸A26: APP_TA_TC_FAULT",
     "A02": "📌 A02: APPLICATOR_CRADLED_DURING_TREATMENT",
-    "A01.19": "📌 A01.19: APPLICATOR_DISCONNECTED. APPLICATOR_COMM_TIMEOUT",
+    "A01.19": "🔸 A01: APPLICATOR_DISCONNECTED\n🔸 A19:APPLICATOR_COMM_TIMEOUT",
     "W03": "📌 W03: WATER_FLOW_RATE_LOW",
-    "W04.05.07.09": "📌 W04.05.07.09: WATER_FLOW_RATE_HIGH. TEC_HOTSIDE_TEMP...",
+    "W04.05.07.09": "🔸 W04: WATER_FLOW_RATE_HIGH\n🔸 W05: TEC_HOTSIDE_TEMP\n🔸 W07: WATER_FLOW_SENSOR_ISR_FAULT\n🔸 W09: WATER_TEMP_TOO_LOW",
     "W01": "📌 W01: WATER_LEVEL_LOW",
     "A05-44~47": "📌 A05-44~47: APPLICATOR_REPORTS_ERROR",
-    "A24.25": "📌 A24.25: BIOTIP_ID_UNEXPECTED_REMOVAL...",
+    "A24.25": "🔸 A24: BIOTIP_ID_UNEXPECTED_REMOVAL\n🔸 A25:BIOTIP_WRITE_VERIFY_FAILED.",
     "A23": "📌 A23: APPLICATOR_TA_UNDERTEMP",
     "A22": "📌 A22: APP_LATCH_ANGLE",
-    "V03.04.06": "📌 V03.04.06: PATIENT_PRESSURE_HIGH...",
-    "V01.02": "📌 V01.02: RESERVOIR_PRESSURE_LOW...",
+    "V03.04.06": "🔸V03: PATIENT_PRESSURE_HIGH\n🔸V04: TC_REPEATED_VACUUM_LOSS\n🔸V06: PRESSURE_MISMATCH.",
+    "V01.02": "🔸V01: RESERVOIR_PRESSURE_LOW\n🔸V02: RESERVOIR_PRESSURE_HIGH.",
     "P03": "📌 P03: VACUUM_PUMP_FAULT",
     "W06": "📌 W06: WATER_TEMP_TOO_HIGH",
     "A08.09.14": "📌 A08.09.14: 這是一組有趣的數據。",
-    "Fxx": "📌 Fxx: F00:FILESYSTEM NOT AVAILABLE F01:FILESYSTEM_OPEN. F02:FILESYSTEM_WRITE. F03:FILESYSTEM_ERROR. F04:THUMBDRIVE_FAULT. F05:THUMBDRIVE_ALMOST_FULL. F06:THUMBDRIVE_NOT_INSTALLED"
+    "Fxx": "🔸Fxx: F00:FILESYSTEM NOT AVAILABLE\n🔸 F01:FILESYSTEM_OPEN\n🔸 F02:FILESYSTEM_WRITE\n🔸 F03:FILESYSTEM_ERROR\n🔸 F04:THUMBDRIVE_FAULT\n🔸 F05:THUMBDRIVE_ALMOST_FULL\n🔸 F06:THUMBDRIVE_NOT_INSTALLED"
+
 };
+
+// 打開 modal 並顯示文字
+function openModal(text) {
+    document.getElementById("infoText").innerText = text;
+    document.getElementById("infoModal").style.display = "block";
+}
+
+// 關閉 modal
+document.querySelector(".close-btn").addEventListener("click", function() {
+    document.getElementById("infoModal").style.display = "none";
+});
 
 // **建立圖表**
 const myChart = new Chart(ctx, {
@@ -131,19 +143,21 @@ const myChart = new Chart(ctx, {
                 const dataIndex = elements[0].index;
 
                 if (datasetIndex === 0) {
-                    // **點擊外層時顯示對應資訊**
-                    alert(outerInfo[outerLabels[dataIndex]]);
+                    // 點擊外層顯示詳細資訊
+                    openModal(outerInfo[outerLabels[dataIndex]]);
                 } else {
-                    // **點擊內層時顯示對應資訊 + 該內層對應的所有外層資訊**
+                    // 點擊內層顯示詳細資訊
                     const label = innerLabels[dataIndex];
                     const relatedOuterLabels = mapping[label].map(item => outerInfo[item]).join("\n");
-                    alert(`${innerInfo[label]}\n\n🌟 關聯的外層數據:\n${relatedOuterLabels}`);
+                    openModal(`${innerInfo[label]}\n\n🌟 關聯的外層數據:\n${relatedOuterLabels}`);
                 }
             }
         }
     },
     plugins: [ChartDataLabels]
 });
+
+
 
 
 
