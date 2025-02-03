@@ -52,6 +52,11 @@ const innerInfo = {
     'USB': '🔹 USB: 這是一組USB的詳細資訊。'
 };
 
+// 替換換行符號 \n 為 <br>
+function formatText(text) {
+    return text.replace(/\n/g, '<br>');
+}
+
 // **外層的詳細資訊**
 const outerInfo = {
     "A17": "📌 A17: APP_SELFTEST",
@@ -86,7 +91,7 @@ document.querySelector(".close-btn").addEventListener("click", function() {
     document.getElementById("infoModal").style.display = "none";
 });
 
-// **建立圖表**
+// 在圖表的 onClick 事件中使用 formatText 來顯示換行
 const myChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
@@ -95,7 +100,7 @@ const myChart = new Chart(ctx, {
                 label: '外層數據',
                 data: outerData,
                 backgroundColor: outerColors,
-                 
+                borderColor: outerColors,
                 borderWidth: 2,
                 hoverOffset: 5
             },
@@ -103,7 +108,7 @@ const myChart = new Chart(ctx, {
                 label: '內層數據',
                 data: innerData,
                 backgroundColor: innerColors,
-               
+                borderColor: innerColors,
                 borderWidth: 2,
                 hoverOffset: 5
             }
@@ -111,29 +116,16 @@ const myChart = new Chart(ctx, {
     },
     options: {
         responsive: true,
-        cutout: '50%', // 調整內層大小
+        cutout: '40%',
         plugins: {
-            legend: {
-                position: 'top'
-            },
             tooltip: {
                 callbacks: {
                     label: function (tooltipItem) {
-                        return tooltipItem.label;
-                    }
-                }
-            },
-            datalabels: {
-                color: 'black',
-                font: {
-                    size: 14,
-                    weight: 'bold'
-                },
-                formatter: (value, context) => {
-                    if (context.datasetIndex === 1) {
-                        return innerLabels[context.dataIndex];
-                    } else {
-                        return outerLabels[context.dataIndex];
+                        const label = tooltipItem.label;
+                        if (outerInfo[label]) {
+                            return formatText(outerInfo[label]); // 處理換行
+                        }
+                        return label;
                     }
                 }
             }
@@ -144,20 +136,15 @@ const myChart = new Chart(ctx, {
                 const dataIndex = elements[0].index;
 
                 if (datasetIndex === 0) {
-                    // 點擊外層顯示詳細資訊
-                    openModal(outerInfo[outerLabels[dataIndex]]);
-                } else {
-                    // 點擊內層顯示詳細資訊
-                    const label = innerLabels[dataIndex];
-                    const relatedOuterLabels = mapping[label].map(item => outerInfo[item]).join("\n");
-                    openModal(`${innerInfo[label]}\n\n🌟 關聯的外層數據:\n${relatedOuterLabels}`);
+                    const label = outerLabels[dataIndex];
+                    const info = outerInfo[label];
+                    alert(formatText(info)); // 處理換行
                 }
             }
         }
     },
     plugins: [ChartDataLabels]
 });
-
 
 
 
