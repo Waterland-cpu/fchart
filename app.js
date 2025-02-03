@@ -55,7 +55,7 @@ const innerInfo = {
 // **外層的詳細資訊**
 const outerInfo = {
     "A17": "📌 A17: APP_SELFTEST",
-    "A16.26": "🔸A16: APPLICATOR_TA_OVERTEMP \n🔸A26: APP_TA_TC_FAULT",
+    "A16.26": "🔸A16: APPLICATOR_TA_OVERTEMP <br>🔸A26: APP_TA_TC_FAULT",
     "A02": "📌 A02: APPLICATOR_CRADLED_DURING_TREATMENT",
     "A01.19": "🔸 A01: APPLICATOR_DISCONNECTED<br>🔸 A19:APPLICATOR_COMM_TIMEOUT",
     "W03": "📌 W03: WATER_FLOW_RATE_LOW",
@@ -119,8 +119,7 @@ const myChart = new Chart(ctx, {
             tooltip: {
                 callbacks: {
                     label: function (tooltipItem) {
-                        return tooltipItem.label;
-                    }
+return tooltipItem.label.replace(/ /g, '<br>');                    }
                 }
             },
             datalabels: {
