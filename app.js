@@ -76,7 +76,7 @@ const outerInfo = {
 
 // 打開 modal 並顯示文字
 function openModal(text) {
-    document.getElementById("infoText").innerHTML = text;
+    document.getElementById("infoText").innertext = text;
     document.getElementById("infoModal").style.display = "block";
 }
 
@@ -85,6 +85,11 @@ document.querySelector(".close-btn").addEventListener("click", function() {
     document.getElementById("infoModal").style.display = "none";
 });
 
+// 打開 modal 並顯示文字
+function openModal(text) {
+    document.getElementById("infoText").innerHTML = text;
+    document.getElementById("infoModal").style.display = "block";
+  
     // **監聽彈出視窗內的超連結點擊事件**
     document.querySelectorAll(".info-link").forEach(link => {
         link.addEventListener("click", function(event) {
